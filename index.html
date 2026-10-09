@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Correos de bancos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <h1>Correos de bancos desde oficios judiciales</h1>
+  <p class="sub">Todo se procesa en tu navegador. Ningún archivo se envía a internet.</p>
+
+  <section class="card" id="dir">
+    <h2>1. Directorio <span id="dirCount" class="pill"></span></h2>
+    <div class="row">
+      <label class="btn">Cargar CSV / Excel<input type="file" id="dirFile" accept=".csv,.xlsx,.xls,.xlsm" hidden></label>
+      <button id="btnExport" class="ghost" type="button">Descargar CSV actualizado</button>
+    </div>
+    <p class="hint" id="dirMsg">Columnas esperadas: BANCO, NIT, CORREO (y opcional ALIAS, separados por |). El directorio queda guardado en este navegador.</p>
+    <details>
+      <summary>Ver, buscar o añadir bancos</summary>
+      <form id="addForm" class="grid">
+        <input name="nombre" placeholder="Banco / entidad" required>
+        <input name="nit" placeholder="NIT">
+        <input name="correo" placeholder="Correo" required>
+        <input name="alias" placeholder="Alias (separados por |)">
+        <button type="submit">Añadir</button>
+      </form>
+      <input id="dirSearch" placeholder="Buscar en el directorio…">
+      <div class="scroll"><table id="dirTable"></table></div>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>2. Oficio (PDF)</h2>
+    <label class="btn">Seleccionar PDF<input type="file" id="pdfFile" accept="application/pdf" hidden></label>
+    <span id="pdfName" class="hint"></span>
+    <p class="hint" id="pdfMsg"></p>
+    <div id="review" hidden>
+      <div class="grid2">
+        <label>Número de oficio <input id="fOficio"></label>
+        <label>Radicado <input id="fRadicado"></label>
+      </div>
+      <label>Entidades destinatarias (una por línea, en el orden del oficio; puedes corregirlas)
+        <textarea id="fEntidades" rows="8"></textarea>
+      </label>
+      <p class="hint" id="blockMsg"></p>
+      <button id="btnRun" type="button">Generar resultado</button>
+      <details><summary>Ver texto extraído del PDF</summary><pre id="rawText"></pre></details>
+    </div>
+  </section>
+
+  <section class="card" id="result" hidden>
+    <h2>Resultado</h2>
+    <h3>A. Datos del oficio</h3>
+    <ul id="resA"></ul>
+    <h3>B. Listado de correos electrónicos</h3>
+    <textarea id="resB" rows="4" readonly></textarea>
+    <button id="btnCopy" type="button">Copiar listado</button> <span id="copied" class="hint"></span>
+    <h3>C. Observaciones</h3>
+    <div id="resC"></div>
+    <h3>D. Resumen de verificación</h3>
+    <ul id="resD"></ul>
+  </section>
+</main>
+
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="js/matcher.js"></script>
+<script src="js/directory.js"></script>
+<script src="js/oficio.js"></script>
+<script src="js/pdf.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
